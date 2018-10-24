@@ -10,8 +10,10 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { AuthService } from './auth/auth.service';
 import { AppRoutingModule } from './app.routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TodosComponent } from './todos/components/todos/todos.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { TodosService } from './todos/services/todos.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { TodosComponent } from './todos/components/todos/todos.component';
     AuthModule
 
   ],
-  providers: [AuthService],
+  providers: [AuthService, TodosService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

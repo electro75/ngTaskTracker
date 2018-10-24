@@ -30,9 +30,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
-    }).subscribe(res => {
-      this.router.navigate(['todos']);
-    });
+    }).subscribe(res =>{
+      this.router.navigate(['todos'])
+    })
 
   }
 
