@@ -1,8 +1,28 @@
 
   <div fxLayout="column no-wrap" fxLayoutAlign="space-around center"
         style="min-height: 200px;">
-    <mat-card *ngFor="let todo of todos" >
-      {{ todo.text }}
+    <mat-card>
+      <mat-card-title> Tasks </mat-card-title>
+      <mat-card *ngFor="let todo of todos" >
+          <mat-card-title>{{ todo.text }}</mat-card-title>
+          <mat-card-actions fxLayout="row wrap" fxLayoutAlign="flex-end center" >
+            <button mat-icon-button color="primary" >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="accent">
+              <mat-icon>done</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+          </mat-card-actions>
+        </mat-card>
+      <mat-card-actions fxLayout="row wrap" fxLayoutAlign="flex-end center">
+        <button mat-fab>
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-actions>
     </mat-card>
+      
   </div>
 
