@@ -32,4 +32,8 @@ export class TodosService {
     getTodos() {
         return this.http.get(`${environment.url}todos`, this.requestOptions)
     }
+
+    getToken() {
+        return this.token ? true : false;
+    }
 }

@@ -9,11 +9,16 @@ import { TodosService } from '../../services/todos.service';
 })
 export class TodosComponent implements OnInit {
 
+  private todos = []
+
   constructor(private todosService: TodosService) { }
 
   ngOnInit() {
     this.todosService.getTodos()
-        .subscribe(res => {  console.log(res)});
+        .subscribe((res:any) => {
+          console.log(res);
+          this.todos = res.todos
+        });
   }
 
 }
