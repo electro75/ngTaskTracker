@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { User } from "./user.model";
 import { AuthData } from "./auth-data.model";
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { TodosService } from '../todos/services/todos.service';
 
 
 
@@ -32,11 +33,9 @@ export class AuthService {
     }
 
     logout() {
-        
-    }
-
-    getAllTodos() {
-        return this.http.get(`${environment.url}todos`, this.requestOptions)
+        let token = (JSON.parse(localStorage.getItem('x-auth'))).token;
+        localStorage.removeItem('x-auth')
+        return this.http.delete(`${environment.url}users/me/token`, { headers: {'Content-Type': 'application/json', 'x-auth': token }});
     }
 
     isAuth() {

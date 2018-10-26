@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../auth/auth.service';
+import { TodosService } from 'src/app/todos/services/todos.service';
 
 @Component({
   selector: 'app-header',
@@ -14,12 +15,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuth: Boolean;
   authSubscription: Subscription
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private todosService: TodosService) { }
 
   ngOnInit() {
     this.authSubscription = this.authService.authChange.subscribe(authStatus => {
       this.isAuth = authStatus;
     })
+    
   }
 
   toggleNav() {

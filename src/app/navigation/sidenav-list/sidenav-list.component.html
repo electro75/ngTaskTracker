@@ -14,11 +14,6 @@
       <mat-icon>fingerprint</mat-icon>
       <span class="nav-caption">Signin</span>
   </a>
-  <a mat-list-item routerLink="/training" *ngIf="isAuth" 
-    (click)="onClose()">
-      <mat-icon>fitness_center</mat-icon>
-      <span class="nav-caption">Train</span>
-  </a>
   <mat-list-item>
       <button mat-icon-button (click)="onClose(); onLogout()" *ngIf="isAuth" >
           <mat-icon>eject</mat-icon>

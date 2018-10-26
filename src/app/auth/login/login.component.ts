@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }).subscribe((res: HttpResponse<any>) =>{
       let token = res.headers.get('x-auth');
       this.todosService.storeToken(token);
+      this.authService.authChange.next(true);
       this.router.navigate(['todos'])
     })
 
