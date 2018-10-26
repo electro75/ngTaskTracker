@@ -28,7 +28,7 @@ export class AuthService {
     
 
     login(authData: AuthData) {
-       return this.http.post(`${environment.url}users/login`, authData, { headers: {'Content-Type': 'application/json'}, observe: 'body' })
+       return this.http.post(`${environment.url}users/login`, authData, { headers: {'Content-Type': 'application/json'}, observe: 'response' })
     }
 
     logout() {

@@ -22,8 +22,8 @@ export class AuthInterceptor implements HttpInterceptor {
                 .pipe(
                     tap(evt => {
                         if (evt instanceof HttpResponse) {
-                          let token = evt.headers.get('x-auth')
-                          this.todoService.storeToken(token);
+                          // let token = evt.headers.get('x-auth')
+                          // this.todoService.storeToken(token);
                         }
                     }));
 

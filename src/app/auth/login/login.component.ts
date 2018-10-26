@@ -3,6 +3,8 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { TodosService } from 'src/app/todos/services/todos.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public loaderSub = new Subscription;
 
   constructor(private _fb: FormBuilder, private authService: AuthService,
-              private router: Router) { }
+              private router: Router, private todosService: TodosService) { }
 
   ngOnInit() {
    
@@ -30,7 +32,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
-    }).subscribe(res =>{
+    }).subscribe((res: HttpResponse<any>) =>{
+      let token = res.headers.get('x-auth');
+      this.todosService.storeToken(token);
       this.router.navigate(['todos'])
     })
 

@@ -15,7 +15,7 @@ export class TodosService {
     private token;
     private requestOptions;
 
-    constructor( private http: HttpClient, private _auth: AuthService ) { 
+    constructor( private http: HttpClient, private _auth: AuthService  ) { 
         
     }
 
@@ -27,6 +27,8 @@ export class TodosService {
                 'X-Auth'        :    this.token   
             })
         }
+        let token = 'x-auth'
+        localStorage.setItem(token, JSON.stringify({token: t}))
     }
 
     getTodos() {
@@ -34,6 +36,8 @@ export class TodosService {
     }
 
     getToken() {
-        return this.token ? true : false;
+        let token = (JSON.parse(localStorage.getItem('x-auth'))).token;
+        this.storeToken(token);
+        return token ? true : false;
     }
 }
