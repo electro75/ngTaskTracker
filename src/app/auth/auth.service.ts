@@ -35,6 +35,7 @@ export class AuthService {
     logout() {
         let token = (JSON.parse(localStorage.getItem('x-auth'))).token;
         localStorage.removeItem('x-auth')
+        this.authChange.next(false);
         return this.http.delete(`${environment.url}users/me/token`, { headers: {'Content-Type': 'application/json', 'x-auth': token }});
     }
 

@@ -38,6 +38,7 @@ export class TodosService {
     getToken() {
         let token = (JSON.parse(localStorage.getItem('x-auth'))).token;
         this.storeToken(token);
+        this._auth.authChange.next(true);
         return token ? true : false;
     }
 }
