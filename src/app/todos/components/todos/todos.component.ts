@@ -9,15 +9,25 @@ import { TodosService } from '../../services/todos.service';
 })
 export class TodosComponent implements OnInit {
 
-  private todos = []
+  public activeTodos = []
+  public completedTodos = []
 
   constructor(private todosService: TodosService) { }
 
   ngOnInit() {
     this.todosService.getTodos()
         .subscribe((res:any) => {
-          this.todos = res.todos
+          this.activeTodos = res.todos.filter(res => !res.completed);
+          console.log(this.activeTodos);
+          this.completedTodos = res.todos.filter(res => res.completed);
         });
+  }
+
+  completeTodo(id, index) {
+    this.todosService.completeTask(id, { completed: true })
+    // .subscribe(res => {
+    //   console.log(res);
+    // })
   }
 
 }

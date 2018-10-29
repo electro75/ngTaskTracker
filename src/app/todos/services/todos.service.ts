@@ -41,4 +41,9 @@ export class TodosService {
         this._auth.authChange.next(true);
         return token ? true : false;
     }
+
+    completeTask(id, model) {
+        console.log(this.requestOptions);
+        // return this.http.patch(`${environment.url}todos/${id}`,model, this.requestOptions)
+    }
 }
