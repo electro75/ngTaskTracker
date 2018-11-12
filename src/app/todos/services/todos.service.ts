@@ -24,7 +24,7 @@ export class TodosService {
         this.requestOptions = {
             headers: new HttpHeaders ({
                 'Content-Type'  :   'application/json',
-                'X-Auth'        :    this.token   
+                'x-auth'        :    this.token
             })
         }
         let token = 'x-auth'
@@ -43,7 +43,7 @@ export class TodosService {
     }
 
     completeTask(id, model) {
-        console.log(this.requestOptions);
-        // return this.http.patch(`${environment.url}todos/${id}`,model, this.requestOptions)
+        // console.log(this.requestOptions);
+        return this.http.post(`${environment.url}todos/${id}`, model, this.requestOptions)
     }
 }

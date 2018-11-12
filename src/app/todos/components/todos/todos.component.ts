@@ -18,16 +18,15 @@ export class TodosComponent implements OnInit {
     this.todosService.getTodos()
         .subscribe((res:any) => {
           this.activeTodos = res.todos.filter(res => !res.completed);
-          console.log(this.activeTodos);
           this.completedTodos = res.todos.filter(res => res.completed);
         });
   }
 
   completeTodo(id, index) {
-    this.todosService.completeTask(id, { completed: true })
-    // .subscribe(res => {
-    //   console.log(res);
-    // })
+    this.todosService.completeTask(id, { "completed": true })
+    .subscribe(res => {
+      console.log(res);
+    })
   }
 
 }
