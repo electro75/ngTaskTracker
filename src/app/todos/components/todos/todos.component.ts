@@ -23,9 +23,19 @@ export class TodosComponent implements OnInit {
   }
 
   completeTodo(id, index) {
-    this.todosService.completeTask(id, { "completed": true })
-    .subscribe(res => {
-      console.log(res);
+    this.activeTodos.splice(index, 1)
+    this.todosService.transferTask(id, { "completed": true })
+    .subscribe((res: any) => {
+      this.completedTodos.push(res.todo)
+      
+    })
+  }
+
+  resetTodo(id, index) {
+    this.completedTodos.splice(index, 1)
+    this.todosService.transferTask(id, {"completed": false})
+    .subscribe((res: any) => {
+      this.activeTodos.push(res.todo);
     })
   }
 

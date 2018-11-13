@@ -42,7 +42,7 @@ export class TodosService {
         return token ? true : false;
     }
 
-    completeTask(id, model) {
+    transferTask(id, model) {
         // console.log(this.requestOptions);
         return this.http.post(`${environment.url}todos/${id}`, model, this.requestOptions)
     }
