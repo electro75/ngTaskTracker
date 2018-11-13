@@ -46,4 +46,8 @@ export class TodosService {
         // console.log(this.requestOptions);
         return this.http.post(`${environment.url}todos/${id}`, model, this.requestOptions)
     }
+
+    deleteTodo(id) {
+        return this.http.delete(`${environment.url}todos/${id}`, this.requestOptions)
+    }
 }

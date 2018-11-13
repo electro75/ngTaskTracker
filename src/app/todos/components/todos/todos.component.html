@@ -15,7 +15,7 @@
                     <button mat-icon-button color="accent" (click)="completeTodo(todo._id, index)" >
                       <mat-icon>done</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn">
+                    <button mat-icon-button color="warn" (click)="removeTodo(todo, index)" >
                         <mat-icon>delete</mat-icon>
                       </button>
                   </mat-card-actions>
@@ -24,18 +24,21 @@
             
         </mat-tab>
         <mat-tab label="Finished">
-          <mat-card *ngFor="let todo of completedTodos; let i = index" >
-            <mat-card-title>{{ todo.text }}</mat-card-title>
-            {{todo.completedAt | date}}
-            <mat-card-actions fxLayout="row wrap" fxLayoutAlign="flex-end center" >
-              <button mat-icon-button color="primary" (click)="resetTodo(todo._id, index)" >
-                <mat-icon>refresh</mat-icon>
-              </button>
-              <button mat-icon-button color="warn">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </mat-card-actions>
-          </mat-card>
+          <div class="parent-card">
+              <mat-card *ngFor="let todo of completedTodos; let i = index" >
+                <mat-card-title>{{ todo.text }}</mat-card-title>
+                {{todo.completedAt | date}}
+                <mat-card-actions fxLayout="row wrap" fxLayoutAlign="flex-end center" >
+                  <button mat-icon-button color="primary" (click)="resetTodo(todo._id, index)" >
+                    <mat-icon>refresh</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="removeTodo(todo, index)" >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+          </div>
+          
         </mat-tab>
       </mat-tab-group>
 

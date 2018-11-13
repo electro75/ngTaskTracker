@@ -15,13 +15,15 @@ import { TodosComponent } from './todos/components/todos/todos.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { TodosService } from './todos/services/todos.service';
 import { AuthGuard } from './auth/auth.guard';
+import { ConfirmComponent } from './todos/components/modals/confirm.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidenavListComponent,
-    TodosComponent
+    TodosComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import { AuthGuard } from './auth/auth.guard';
   providers: [AuthService, TodosService, AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
+  entryComponents: [ConfirmComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
