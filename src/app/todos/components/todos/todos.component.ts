@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MatSnackBar } from '@angular/material';
 import { TodosService } from '../../services/todos.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class TodosComponent implements OnInit {
   public activeTodos = []
   public completedTodos = []
 
-  constructor(private todosService: TodosService) { }
+  constructor(private todosService: TodosService, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.todosService.getTodos()
@@ -27,7 +28,7 @@ export class TodosComponent implements OnInit {
     this.todosService.transferTask(id, { "completed": true })
     .subscribe((res: any) => {
       this.completedTodos.push(res.todo)
-      
+      this.snackbar.open('Todo Completed!')
     })
   }
 
@@ -36,6 +37,7 @@ export class TodosComponent implements OnInit {
     this.todosService.transferTask(id, {"completed": false})
     .subscribe((res: any) => {
       this.activeTodos.push(res.todo);
+      this.snackbar.open('Todo Restored')
     })
   }
 

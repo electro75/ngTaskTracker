@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MatSnackBar } from '@angular/material';
+
 import { environment } from '../../../environments/environment';
 import { User } from "../../shared/models/user.model";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -15,7 +15,7 @@ export class TodosService {
     private token;
     private requestOptions;
 
-    constructor( private http: HttpClient, private _auth: AuthService  ) { 
+    constructor( private http: HttpClient, private _auth: AuthService) { 
         
     }
 
