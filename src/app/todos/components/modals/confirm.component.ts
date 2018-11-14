@@ -8,13 +8,11 @@ import { MAT_DIALOG_DATA } from '@angular/material'
                     <p>Are you sure you want to delete \"{{todo.todo.text}}\"?</p>
                 </mat-dialog-content>
                 <mat-dialog-actions>
-                    <button mat-raised-button color='warn' [mat-dialog-close]="true">Delete</button>
                     <button mat-raised-button color='primary' [mat-dialog-close]="false">Cancel</button>
+                    <button mat-raised-button color='warn' [mat-dialog-close]="true">Delete</button>
                 </mat-dialog-actions>`
 })
 export class ConfirmComponent {
 
-    constructor(@Inject(MAT_DIALOG_DATA)public todo: any) { 
-        console.log(this.todo);
-     }
+    constructor(@Inject(MAT_DIALOG_DATA)public todo: any) {  }
  }

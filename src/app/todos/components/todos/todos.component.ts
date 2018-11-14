@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ConfirmComponent } from '../modals/confirm.component';
+import { AddNewComponent } from '../modals/add-new.component';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { TodosService } from '../../services/todos.service';
 
@@ -41,6 +42,17 @@ export class TodosComponent implements OnInit {
       this.activeTodos.push(res.todo);
       this.snackbar.open('Todo Restored', null, { duration: 1500 })
     })
+  }
+
+  addTodo() {
+    const dialogRef = this.dialog.open(AddNewComponent);
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res) {
+        this.todosService.addTodo({ text: res }).subscribe(res => this.ngOnInit());
+      }
+    })
+    
   }
 
   removeTodo(todo, index) {

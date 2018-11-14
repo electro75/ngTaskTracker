@@ -16,6 +16,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { TodosService } from './todos/services/todos.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ConfirmComponent } from './todos/components/modals/confirm.component';
+import { AddNewComponent } from './todos/components/modals/add-new.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,10 +25,12 @@ import { ConfirmComponent } from './todos/components/modals/confirm.component';
     HeaderComponent,
     SidenavListComponent,
     TodosComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    AddNewComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
@@ -38,7 +42,7 @@ import { ConfirmComponent } from './todos/components/modals/confirm.component';
   providers: [AuthService, TodosService, AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  entryComponents: [ConfirmComponent],
+  entryComponents: [ConfirmComponent, AddNewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
