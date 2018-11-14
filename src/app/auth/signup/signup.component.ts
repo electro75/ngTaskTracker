@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { TodosService } from 'src/app/todos/services/todos.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +18,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   private loaderSub = new Subscription;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router, 
+              private todosService: TodosService) { }
 
   ngOnInit() {
     
@@ -27,6 +31,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.authService.registerUser({
       email: form.value.email,
       password: form.value.password
+    }).subscribe((res: HttpResponse<any>) => {
+      let token = res.headers.get('x-auth');
+      this.todosService.storeToken(token);
+      this.authService.authChange.next(true);
+      this.router.navigate(['todos'])
     })
   }
 

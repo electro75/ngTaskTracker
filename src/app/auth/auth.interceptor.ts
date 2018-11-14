@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse }
   from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { pipe } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { tap, catchError } from 'rxjs/operators'
 import { AuthService } from './auth.service';
 import { TodosService } from '../todos/services/todos.service';
 
@@ -19,13 +19,10 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
 
     return next.handle(req)
-                .pipe(
-                    tap(evt => {
-                        if (evt instanceof HttpResponse) {
-                          // let token = evt.headers.get('x-auth')
-                          // this.todoService.storeToken(token);
-                        }
-                    }));
+                .pipe(catchError((error, caught)=>{
+                  console.log(error)
+                  return of(error);
+                }) as any);
 
   }
 }

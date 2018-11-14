@@ -23,7 +23,7 @@ export class AuthService {
     private isAuthentiacted = false
 
     registerUser(authData: AuthData) {
-        
+        return this.http.post(`${environment.url}users`, authData, { headers: { 'Content-Type': 'application/json' }, observe: 'response' })
     }
 
     
