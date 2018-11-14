@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ConfirmComponent } from '../modals/confirm.component';
 import { AddNewComponent } from '../modals/add-new.component';
+import { EditComponent } from '../modals/edit.component';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { TodosService } from '../../services/todos.service';
 
@@ -27,20 +28,30 @@ export class TodosComponent implements OnInit {
   }
 
   completeTodo(id, index) {
-    this.activeTodos.splice(index, 1)
-    this.todosService.transferTask(id, { "completed": true })
+    this.todosService.editTodo(id, { "completed": true })
     .subscribe((res: any) => {
-      this.completedTodos.push(res.todo)
+      this.ngOnInit();
       this.snackbar.open('Todo Completed!', null, { duration: 1500 })
     })
   }
 
   resetTodo(id, index) {
-    this.completedTodos.splice(index, 1)
-    this.todosService.transferTask(id, {"completed": false})
+    this.todosService.editTodo(id, {"completed": false})
     .subscribe((res: any) => {
-      this.activeTodos.push(res.todo);
+      this.ngOnInit();
       this.snackbar.open('Todo Restored', null, { duration: 1500 })
+    })
+  }
+
+  editTodo(todo) {
+    const dialogRef = this.dialog.open(EditComponent, { data: { todo }});
+
+    dialogRef.afterClosed().subscribe(res => { 
+      if(res) {
+        this.todosService.editTodo(todo._id, { text : res.todo.text }).subscribe(res => {
+          this.snackbar.open('Todo Updated!', null, { duration: 1500 })
+        })
+      }
     })
   }
 
@@ -60,9 +71,7 @@ export class TodosComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if(res) {
-        this.todosService.deleteTodo(todo._id).subscribe(res => {
-          this.ngOnInit();
-        });
+        this.todosService.deleteTodo(todo._id).subscribe(res => this.ngOnInit());
       } 
     })
   }

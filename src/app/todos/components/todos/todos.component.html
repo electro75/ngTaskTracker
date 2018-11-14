@@ -9,7 +9,7 @@
               <mat-card *ngFor="let todo of activeTodos; let i = index" >
                   <mat-card-title>{{ todo.text }}</mat-card-title>
                   <mat-card-actions fxLayout="row wrap" fxLayoutAlign="flex-end center" >
-                    <button mat-icon-button color="primary" >
+                    <button mat-icon-button color="primary" (click)="editTodo(todo, index)" >
                       <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="accent" (click)="completeTodo(todo._id, index)" >

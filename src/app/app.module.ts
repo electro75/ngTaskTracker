@@ -18,6 +18,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { ConfirmComponent } from './todos/components/modals/confirm.component';
 import { AddNewComponent } from './todos/components/modals/add-new.component';
 import { FormsModule } from '@angular/forms';
+import { EditComponent } from './todos/components/modals/edit.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     SidenavListComponent,
     TodosComponent,
     ConfirmComponent,
-    AddNewComponent
+    AddNewComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,7 @@ import { FormsModule } from '@angular/forms';
   providers: [AuthService, TodosService, AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  entryComponents: [ConfirmComponent, AddNewComponent],
+  entryComponents: [ConfirmComponent, AddNewComponent, EditComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

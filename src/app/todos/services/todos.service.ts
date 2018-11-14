@@ -46,7 +46,7 @@ export class TodosService {
         return this.http.post(`${environment.url}todos`, model, this.requestOptions)
     }
 
-    transferTask(id, model) {
+    editTodo(id, model) {
         // console.log(this.requestOptions);
         return this.http.post(`${environment.url}todos/${id}`, model, this.requestOptions)
     }
