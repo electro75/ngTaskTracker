@@ -6,7 +6,8 @@
       <mat-tab-group>
         <mat-tab label="Tasks" >
           <div class="parent-card">
-              <mat-card *ngFor="let todo of activeTodos; let i = index" >
+            <ng-template [ngIf]="activeTodos.length > 0" >
+                <mat-card *ngFor="let todo of activeTodos; let i = index" >
                   <mat-card-title>{{ todo.text }}</mat-card-title>
                   <mat-card-actions fxLayout="row wrap" fxLayoutAlign="flex-end center" >
                     <button mat-icon-button color="primary" (click)="editTodo(todo, index)" >
@@ -20,23 +21,32 @@
                       </button>
                   </mat-card-actions>
                 </mat-card>
+            </ng-template>
+            <ng-template [ngIf]="activeTodos.length === 0">
+              Add Tasks!
+            </ng-template>  
           </div>
             
         </mat-tab>
         <mat-tab label="Finished">
           <div class="parent-card">
-              <mat-card *ngFor="let todo of completedTodos; let i = index" >
-                <mat-card-title>{{ todo.text }}</mat-card-title>
-                {{todo.completedAt | date}}
-                <mat-card-actions fxLayout="row wrap" fxLayoutAlign="flex-end center" >
-                  <button mat-icon-button color="primary" (click)="resetTodo(todo._id, index)" >
-                    <mat-icon>refresh</mat-icon>
-                  </button>
-                  <button mat-icon-button color="warn" (click)="removeTodo(todo, index)" >
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </mat-card-actions>
-              </mat-card>
+            <ng-template [ngIf]="completedTodos.length > 0" >
+                <mat-card *ngFor="let todo of completedTodos; let i = index" >
+                  <mat-card-title>{{ todo.text }}</mat-card-title>
+                  {{todo.completedAt | date}}
+                  <mat-card-actions fxLayout="row wrap" fxLayoutAlign="flex-end center" >
+                    <button mat-icon-button color="primary" (click)="resetTodo(todo._id, index)" >
+                      <mat-icon>refresh</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="removeTodo(todo, index)" >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-card-actions>
+                </mat-card>
+            </ng-template>
+            <ng-template [ngIf]="completedTodos.length === 0" >
+              No Tasks Completed!
+            </ng-template>
           </div>
           
         </mat-tab>
