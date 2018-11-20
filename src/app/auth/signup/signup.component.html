@@ -30,6 +30,7 @@
     <mat-checkbox ngModel name="agree"
                   required>Agree to Terms and conditions.
     </mat-checkbox>
+    <mat-error *ngIf="isErr" >{{errorMessage}}</mat-error>
     <button type="submit" mat-raised-button color="primary"
             [disabled]="f.invalid" *ngIf="!isLoading">
             Signup

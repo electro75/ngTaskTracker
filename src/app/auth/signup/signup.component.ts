@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
@@ -13,8 +13,12 @@ import { TodosService } from 'src/app/todos/services/todos.service';
 })
 export class SignupComponent implements OnInit, OnDestroy {
 
+  @ViewChild('f') form: NgForm;
+
   public maxDate;
   public isLoading = false;
+  public isErr = false;
+  public errorMessage = ""; 
 
   private loaderSub = new Subscription;
 
@@ -25,17 +29,29 @@ export class SignupComponent implements OnInit, OnDestroy {
     
     this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18 );
+
+    this.form.form.valueChanges.subscribe(val => {
+      this.isErr = false;
+      this.errorMessage = "";
+    })
   }
 
   submitForm(form: NgForm) {
     this.authService.registerUser({
       email: form.value.email,
       password: form.value.password
-    }).subscribe((res: HttpResponse<any>) => {
-      let token = res.headers.get('x-auth');
-      this.todosService.storeToken(token);
-      this.authService.authChange.next(true);
-      this.router.navigate(['todos'])
+    }).subscribe((res: any) => {
+      if(!res.body.error) {
+        let token = res.headers.get('x-auth');
+        this.todosService.storeToken(token);
+        this.authService.authChange.next(true);
+        this.router.navigate(['todos'])
+      } else {
+        this.isErr = true;
+        this.errorMessage = res.body.message;
+
+      }
+      
     })
   }
 

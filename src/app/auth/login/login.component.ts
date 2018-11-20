@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public loginForm : FormGroup;
   public isLoading = false;
+  public errorMessage = '';
+  public isErr = false
   public loaderSub = new Subscription;
 
   constructor(private _fb: FormBuilder, private authService: AuthService,
@@ -23,8 +25,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
    
     this.loginForm = this._fb.group({
-      email: [''],
-      password: ['']
+      email: ['', <any>Validators.required],
+      password: ['', <any>Validators.required]
+    })
+
+    this.onChanges();
+  }
+
+  onChanges() {
+    this.loginForm.valueChanges
+    .subscribe(val => {
+      this.isErr = false;
+      this.errorMessage = '';
     })
   }
 
@@ -32,11 +44,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
-    }).subscribe((res: HttpResponse<any>) =>{
-      let token = res.headers.get('x-auth');
-      this.todosService.storeToken(token);
-      this.authService.authChange.next(true);
-      this.router.navigate(['todos'])
+    }).subscribe((res: any) =>{
+      if(!res.body.error) {
+        let token = res.headers.get('x-auth');
+        this.todosService.storeToken(token);
+        this.authService.authChange.next(true);
+        this.router.navigate(['todos'])
+      } else {
+        this.isErr = true;
+        this.errorMessage = res.body.message;
+      }
+        
     })
 
   }
