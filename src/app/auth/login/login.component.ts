@@ -41,10 +41,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
+    this.isLoading = true;
     this.authService.login({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     }).subscribe((res: any) =>{
+      this.isLoading = false;
       if(!res.body.error) {
         let token = res.headers.get('x-auth');
         this.todosService.storeToken(token);

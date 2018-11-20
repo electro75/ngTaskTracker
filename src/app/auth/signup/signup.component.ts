@@ -37,10 +37,12 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   submitForm(form: NgForm) {
+    this.isLoading = true;
     this.authService.registerUser({
       email: form.value.email,
       password: form.value.password
     }).subscribe((res: any) => {
+      this.isLoading = false;
       if(!res.body.error) {
         let token = res.headers.get('x-auth');
         this.todosService.storeToken(token);
