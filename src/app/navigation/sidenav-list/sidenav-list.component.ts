@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-sidenav-list',
@@ -13,7 +14,7 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   isAuth: Boolean;
   authSubscription: Subscription
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.authSubscription = this.authService.authChange.subscribe(authStatus => {
@@ -26,7 +27,7 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.authService.logout().subscribe(res => this.router.navigate(['/']));
   }
 
   ngOnDestroy() {
